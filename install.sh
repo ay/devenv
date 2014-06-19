@@ -5,6 +5,8 @@ node_version="0.10.29"
 python_version="2.7.6"
 go_version="1.3"
 
+platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
 green () { printf "\033[32m$1\033[0m\n"; }
 yellow () { printf "\033[33m$1\033[0m\n"; }
 red () { printf "\033[31m$1\033[0m\n"; }
@@ -65,7 +67,14 @@ if [ ! -e "$HOME/.pyenv" ]; then
         export PATH="$PYENV_ROOT/bin:$PATH"
         eval "$(pyenv init -)"
         yellow "==> Installing Python v$python_version"
-        pyenv install $python_version
+
+        # On OS X, zlib may be installed some place other than /usr/include
+        if [ "$platform" = "darwin" ]; then
+            CFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install $python_version
+        else
+            pyenv install $python_version
+        fi
+
         pyenv global $python_version
         pyenv rehash
         yellow "==> Installing virtualenv"
@@ -84,7 +93,6 @@ if [ ! -e "$HOME/.local/go" ]; then
         yellow "==> Installing Go v$go_version to ~/.local/go"
 
         # Determine binary tarball filename
-        platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
         if [ "$(uname -m)" = "x86_64" ]; then
             arch="amd64"
         else
