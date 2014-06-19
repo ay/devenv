@@ -3,7 +3,7 @@
 ruby_version="2.1.2"
 node_version="0.10.29"
 python_version="2.7.6"
-go_version="1.2.1"
+go_version="1.3"
 
 green () { printf "\033[32m$1\033[0m\n"; }
 yellow () { printf "\033[33m$1\033[0m\n"; }
@@ -100,7 +100,7 @@ if [ ! -e "$HOME/.local/go" ]; then
         tarball="go${go_version}.${platform}-${arch}${extra}.tar.gz"
 
         # Download URL
-        download="https://go.googlecode.com/files/$tarball"
+        download="http://golang.org/dl/$tarball"
 
         # Attempt to download and untar
         yellow "==> Downloading Go binary tarball from $download"
