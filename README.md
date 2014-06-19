@@ -18,7 +18,7 @@ I've only tested this on recent versions of Ubuntu and OS X Mavericks. You need:
 Before installing, you should read through [install.sh](install.sh). You could either clone this repo and run install.sh from there or just:
 
 ```
-$ curl https://raw.github.com/alexyakoubian/devenv/install.sh | sh
+$ curl https://raw.githubusercontent.com/alexyakoubian/devenv/master/install.sh | sh
 ```
 
 ### Ruby / rbenv
