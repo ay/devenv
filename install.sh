@@ -3,7 +3,7 @@
 ruby_version="2.1.3"
 node_version="0.10.32"
 python_version="2.7.8"
-go_version="1.3"
+go_version="1.3.3"
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
