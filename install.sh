@@ -68,12 +68,7 @@ if [ ! -e "$HOME/.pyenv" ]; then
         eval "$(pyenv init -)"
         yellow "==> Installing Python v$python_version"
 
-        # On OS X, zlib may be installed some place other than /usr/include
-        if [ "$platform" = "darwin" ]; then
-            CFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install $python_version
-        else
-            pyenv install $python_version
-        fi
+        pyenv install $python_version
 
         pyenv global $python_version
         pyenv rehash
