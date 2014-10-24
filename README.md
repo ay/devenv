@@ -8,6 +8,7 @@ I've only tested this on recent versions of Ubuntu and OS X Yosemite. You need:
 
   * Git
   * curl
+  * Bash
   * **Ubuntu**:
     * `build-essential` package
     * `libssl-dev` package
@@ -18,7 +19,7 @@ I've only tested this on recent versions of Ubuntu and OS X Yosemite. You need:
 Before installing, you should read through [install.sh](install.sh). You could either clone this repo and run install.sh from there or just:
 
 ```
-$ curl https://raw.githubusercontent.com/alexyakoubian/devenv/master/install.sh | sh
+$ curl https://raw.githubusercontent.com/alexyakoubian/devenv/master/install.sh | bash
 ```
 
 ### Ruby / rbenv
