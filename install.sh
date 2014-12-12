@@ -2,7 +2,7 @@
 
 ruby_version="2.1.5"
 node_version="0.10.33"
-python_version="2.7.8"
+python_version="2.7.9"
 go_version="1.4"
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
