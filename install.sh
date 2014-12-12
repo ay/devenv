@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ruby_version="2.1.3"
+ruby_version="2.1.5"
 node_version="0.10.33"
 python_version="2.7.8"
 go_version="1.4"
