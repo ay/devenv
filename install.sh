@@ -43,14 +43,16 @@ else
     red "==> ~/.rbenv already exists"
 fi
 
-# Install nvm and Node
+# Install nvm, Node, and io.js
 if [ ! -e "$HOME/.nvm" ]; then
-    if ask "Install nvm and Node" "Y"; then
+    if ask "Install nvm, Node, and io.js" "Y"; then
         yellow "==> Installing nvm into ~/.nvm"
         git clone https://github.com/creationix/nvm.git ~/.nvm
         source ~/.nvm/nvm.sh
         yellow "==> Installing Node v$node_version"
         nvm install $node_version
+        yellow "==> Installing latest io.js"
+        nvm install iojs
         nvm alias default $node_version
         nvm_installed=true
     fi

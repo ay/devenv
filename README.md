@@ -31,9 +31,9 @@ export PATH="$HOME/.rbenv/bin:PATH"
 eval "$(rbenv init -)"
 ```
 
-### Node / nvm
+### Node / io.js / nvm
 
-Node is installed with nvm, which is installed in `~/.nvm`. The latest stable Node is installed under its version directory in `~/.nvm` and made the default Node version with `nvm alias default`. For nvm to work properly you need to load `~/.nvm/nvm.sh` into your shell environment:
+Node is installed with nvm, which is installed in `~/.nvm`. The latest stable Node is installed under its version directory in `~/.nvm` and made the default Node version with `nvm alias default`. The latest unstable io.js release is also installed and available with `nvm use iojs`. For nvm to work properly you need to load `~/.nvm/nvm.sh` into your shell environment:
 
 ```sh
 source ~/.nvm/nvm.sh
