@@ -1,6 +1,6 @@
 # devenv
 
-devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node and io.js with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), and Go. Everything is installed **locally** in your home directory.
+devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), and Go. Everything is installed **locally** in your home directory.
 
 ## Requirements
 
@@ -31,9 +31,9 @@ export PATH="$HOME/.rbenv/bin:PATH"
 eval "$(rbenv init -)"
 ```
 
-### Node / io.js / nvm
+### Node / nvm
 
-Node is installed with nvm, which is installed in `~/.nvm`. The latest stable Node is installed under its version directory in `~/.nvm` and made the default Node version with `nvm alias default`. The latest unstable io.js release is also installed and available with `nvm use iojs`. For nvm to work properly you need to load `~/.nvm/nvm.sh` into your shell environment:
+Node is installed with nvm, which is installed in `~/.nvm`. The latest stable Node is installed under its version directory in `~/.nvm` and made the default Node version with `nvm alias default`. For nvm to work properly you need to load `~/.nvm/nvm.sh` into your shell environment:
 
 ```sh
 source ~/.nvm/nvm.sh

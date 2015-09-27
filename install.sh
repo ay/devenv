@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ruby_version="2.2.0"
-node_version="0.10.35"
+node_version="4.1.1"
 python_version="2.7.9"
 go_version="1.4"
 
@@ -43,16 +43,14 @@ else
     red "==> ~/.rbenv already exists"
 fi
 
-# Install nvm, Node, and io.js
+# Install nvm and Node
 if [ ! -e "$HOME/.nvm" ]; then
-    if ask "Install nvm, Node, and io.js" "Y"; then
+    if ask "Install nvm and Node?" "Y"; then
         yellow "==> Installing nvm into ~/.nvm"
         git clone https://github.com/creationix/nvm.git ~/.nvm
         source ~/.nvm/nvm.sh
         yellow "==> Installing Node v$node_version"
         nvm install $node_version
-        yellow "==> Installing latest io.js"
-        nvm install iojs
         nvm alias default $node_version
         nvm_installed=true
     fi
