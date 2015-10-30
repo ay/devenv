@@ -36,7 +36,7 @@ eval "$(rbenv init -)"
 Node is installed with nvm, which is installed in `~/.nvm`. The latest stable Node is installed under its version directory in `~/.nvm` and made the default Node version with `nvm alias default`. For nvm to work properly you need to load `~/.nvm/nvm.sh` into your shell environment:
 
 ```sh
-source ~/.nvm/nvm.sh
+source "$HOME/.nvm/nvm.sh"
 ```
 
 ### Python / pyenv
