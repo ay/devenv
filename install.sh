@@ -40,7 +40,7 @@ if [ ! -e "$HOME/.rbenv" ]; then
         rbenv_installed=true
     fi
 else
-    red "==> ~/.rbenv already exists"
+    yellow "==> ~/.rbenv already exists"
 fi
 
 # Install nvm and Node
@@ -55,7 +55,7 @@ if [ ! -e "$HOME/.nvm" ]; then
         nvm_installed=true
     fi
 else
-    red "==> ~/.nvm already exists"
+    yellow "==> ~/.nvm already exists"
 fi
 
 # Install pyenv and Python
@@ -79,7 +79,7 @@ if [ ! -e "$HOME/.pyenv" ]; then
         pyenv_installed=true
     fi
 else
-    red "==> ~/.pyenv already exists"
+    yellow "==> ~/.pyenv already exists"
 fi
 
 # Install Go
@@ -121,7 +121,7 @@ if [ ! -e "$HOME/.local/go" ]; then
         fi
     fi
 else
-    red "==> ~/.local/go already exists"
+    yellow "==> ~/.local/go already exists"
 fi
 
 if [ "$rbenv_installed" = true ]; then
