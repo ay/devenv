@@ -30,8 +30,8 @@ ask () {
 if [ ! -e "$HOME/.rbenv" ]; then
     if ask "Install rbenv and Ruby" "Y"; then
         yellow "==> Installing rbenv into ~/.rbenv"
-        git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-        git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+        git clone https://github.com/sstephenson/rbenv.git "$HOME/.rbenv"
+        git clone https://github.com/sstephenson/ruby-build.git "$HOME/.rbenv/plugins/ruby-build"
         export PATH="$HOME/.rbenv/bin:$PATH"
         eval "$(rbenv init -)"
         yellow "==> Compiling and installing Ruby v$ruby_version"
@@ -47,8 +47,8 @@ fi
 if [ ! -e "$HOME/.nvm" ]; then
     if ask "Install nvm and Node?" "Y"; then
         yellow "==> Installing nvm into ~/.nvm"
-        git clone https://github.com/creationix/nvm.git ~/.nvm
-        source ~/.nvm/nvm.sh
+        git clone https://github.com/creationix/nvm.git "$HOME/.nvm"
+        source "$HOME/.nvm/nvm.sh"
         yellow "==> Installing Node v$node_version"
         nvm install $node_version
         nvm alias default $node_version
@@ -62,7 +62,7 @@ fi
 if [ ! -e "$HOME/.pyenv" ]; then
     if ask "Install pyenv and Python" "Y"; then
         yellow "==> Installing pyenv into ~/.pyenv"
-        git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+        git clone git://github.com/yyuu/pyenv.git "$HOME/.pyenv"
         export PYENV_ROOT="$HOME/.pyenv"
         export PATH="$PYENV_ROOT/bin:$PATH"
         eval "$(pyenv init -)"
