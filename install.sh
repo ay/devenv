@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ruby_version="2.2.3"
-node_version="4.2.0"
+node_version="4.2.1"
 python_version="2.7.9"
 go_version="1.4"
 
