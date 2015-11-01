@@ -51,7 +51,7 @@ eval "$(pyenv init -)"
 
 ### Go
 
-Go is installed from an official [binary tarball](https://code.google.com/p/go/downloads/list?q=OpSys-FreeBSD+OR+OpSys-Linux+OR+OpSys-OSX+Type-Archive) for your system into `~/.local/go`. `~/.go` is also created to use as your GOPATH. For Go to work properly, you need to add these to your shell environment:
+Go is installed from an official [binary tarball](https://golang.org/dl/) for your system into `~/.local/go`. `~/.go` is also created to use as your GOPATH. For Go to work properly, you need to add these to your shell environment:
 
 ```sh
 export GOROOT="$HOME/.local/go"
