@@ -96,7 +96,7 @@ if [ ! -e "$HOME/.local/go" ]; then
         tarball="go${go_version}.${platform}-${arch}.tar.gz"
 
         # Download URL
-        download="http://golang.org/dl/$tarball"
+        download="https://storage.googleapis.com/golang/$tarball"
 
         # Attempt to download and untar
         yellow "==> Downloading Go binary tarball from $download"
