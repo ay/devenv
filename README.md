@@ -27,7 +27,7 @@ $ curl https://raw.githubusercontent.com/ay/devenv/master/install.sh | bash
 Ruby is installed with rbenv and [ruby-build](https://github.com/sstephenson/ruby-build). rbenv is installed in `~/.rbenv` and the latest stable Ruby under its version directory in `~/.rbenv/versions`. This Ruby install is also set as rbenv's global Ruby version with `rbenv global`. For rbenv to work properly, you need to add these to your shell environment:
 
 ```sh
-export PATH="$HOME/.rbenv/bin:PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 ```
 
