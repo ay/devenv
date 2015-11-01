@@ -3,7 +3,7 @@
 ruby_version="2.2.3"
 node_version="4.2.1"
 python_version="2.7.10"
-go_version="1.4"
+go_version="1.5.1"
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
@@ -93,14 +93,7 @@ if [ ! -e "$HOME/.local/go" ]; then
         else
             arch="386"
         fi
-        if [ "$platform" = "darwin" ]; then
-            if [ "$(uname -r)" \> "12" ]; then
-                extra="-osx10.8"
-            else
-                extra="-osx10.6"
-            fi
-        fi
-        tarball="go${go_version}.${platform}-${arch}${extra}.tar.gz"
+        tarball="go${go_version}.${platform}-${arch}.tar.gz"
 
         # Download URL
         download="http://golang.org/dl/$tarball"
