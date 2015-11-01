@@ -5,6 +5,10 @@ node_version="4.2.1"
 python_version="2.7.10"
 go_version="1.5.1"
 
+jdk_version="8"
+jdk_update="66"
+jdk_build="17"
+
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
 green () { printf "\033[32m$1\033[0m\n"; }
@@ -117,6 +121,52 @@ else
     yellow "==> ~/.local/go already exists"
 fi
 
+if [ ! -e "$HOME/.local/java" ]; then
+    if ask "Install JDK to ~/.local/java" "Y"; then
+        if [ "$platform" = "darwin" ]; then
+            jdk_dmg="jdk-${jdk_version}u${jdk_update}-macosx-x64.dmg"
+            jdk_ver="${jdk_version}u${jdk_update}-b${jdk_build}"
+            jdk_url="http://download.oracle.com/otn-pub/java/jdk/${jdk_ver}/${jdk_dmg}"
+            yellow "==> Installing JDK ${jdk_ver} to ~/.local/java"
+
+            # Work from a temporary directory
+            jdk_tmp="$(mktemp -d -t jdk)" && pushd "$jdk_tmp" > /dev/null
+
+            # Download JDK
+            curl -#fL \
+                 --cookie "oraclelicense=accept-securebackup-cookie" \
+                 -o "$jdk_dmg" "$jdk_url"
+
+            # Mount DMG
+            hdiutil attach "$jdk_dmg" -mountpoint "mounted_dmg" > /dev/null
+
+            # Expand package
+            pkgutil --expand \
+                "mounted_dmg/JDK ${jdk_version} Update ${jdk_update}.pkg" \
+                "expanded_pkg"
+
+            # Extract Java home to ~/.local/java
+            mkdir -p "$HOME/.local/java"
+            tar xf \
+                "expanded_pkg/jdk1${jdk_version}0${jdk_update}.pkg/Payload" \
+                -C "$HOME/.local/java" \
+                --strip-components 3 \
+                "Contents/Home"
+
+            # Unmount DMG
+            hdiutil detach "mounted_dmg" > /dev/null
+
+            # Clean up
+            popd > /dev/null
+            rm -r "$jdk_tmp"
+
+            jdk_installed=true
+        fi
+    fi
+else
+    yellow "==> ~/.local/java already exists"
+fi
+
 if [ "$rbenv_installed" = true ]; then
     green "
 Ruby v$ruby_version is now installed with rbenv in ~/.rbenv. You should add
@@ -156,5 +206,15 @@ as your GOPATH. You should add these to your shell environment:
     export PATH=\"\$PATH:\$GOROOT/bin\"
     export GOPATH=\"\$HOME/.go\"
     export PATH=\"\$PATH:\$GOPATH/bin\"
+    "
+fi
+
+if [ "$jdk_installed" = true ]; then
+    green "
+JDK ${jdk_version}u${jdk_update}-b${jdk_build} is now installed in ~/.local/java.
+You should add these to your shell environment:
+
+    export JAVA_HOME=\"\$HOME/.local/java\"
+    export PATH=\"\$JAVA_HOME:\$PATH\"
     "
 fi

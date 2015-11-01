@@ -1,6 +1,6 @@
 # devenv
 
-devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), and Go. Everything is installed **locally** in your home directory.
+devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), Go, and Java (OS X only for now). Everything is installed **locally** in your home directory.
 
 ## Requirements
 
@@ -58,4 +58,13 @@ export GOROOT="$HOME/.local/go"
 export PATH="$PATH:$GOROOT/bin"
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
+```
+
+### Java / JDK
+
+Java is installed from [binaries](http://www.oracle.com/technetwork/java/javase/downloads/index.html) distributed by Oracle for your system into `~/.local/java`. Currently, Java will only be installed on OS X. For Java to work properly, you need to add these to your shell environment:
+
+```sh
+export JAVA_HOME="$HOME/.local/java"
+export PATH="$JAVA_HOME:$PATH"
 ```
