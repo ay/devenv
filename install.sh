@@ -11,6 +11,7 @@
 : ${JDK_VERSION:="8"}
 : ${JDK_UPDATE:="66"}
 : ${JDK_BUILD:="17"}
+: ${JDK_DIGEST:="cd416de4f41f9f0a6984c456481437681674a717da62259740c54732f174fa08"}
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
@@ -31,6 +32,12 @@ ask () {
     else
         test "$yn" != 'n' -a "$yn" != 'no'
     fi
+}
+
+verify_digest () {
+    local filename="$1" digest="$2"
+    local expected="$(openssl dgst -sha256 "$1" | cut -d " " -f 2)"
+    [ "$expected" = "$digest" ]
 }
 
 # Install rbenv and Ruby
@@ -140,30 +147,36 @@ if [ ! -e "$HOME/.local/java" ]; then
                  --cookie "oraclelicense=accept-securebackup-cookie" \
                  -o "$jdk_dmg" "$jdk_url"
 
-            # Mount DMG
-            hdiutil attach "$jdk_dmg" -mountpoint "mounted_dmg" > /dev/null
+            if verify_digest "$jdk_dmg" "$JDK_DIGEST"; then
 
-            # Expand package
-            pkgutil --expand \
-                "mounted_dmg/JDK ${JDK_VERSION} Update ${JDK_UPDATE}.pkg" \
-                "expanded_pkg"
+                # Mount DMG
+                hdiutil attach "$jdk_dmg" -mountpoint "mounted_dmg" > /dev/null
 
-            # Extract Java home to ~/.local/java
-            mkdir -p "$HOME/.local/java"
-            tar xf \
-                "expanded_pkg/jdk1${JDK_VERSION}0${JDK_UPDATE}.pkg/Payload" \
-                -C "$HOME/.local/java" \
-                --strip-components 3 \
-                "Contents/Home"
+                # Expand package
+                pkgutil --expand \
+                    "mounted_dmg/JDK ${JDK_VERSION} Update ${JDK_UPDATE}.pkg" \
+                    "expanded_pkg"
 
-            # Unmount DMG
-            hdiutil detach "mounted_dmg" > /dev/null
+                # Extract Java home to ~/.local/java
+                mkdir -p "$HOME/.local/java"
+                tar xf \
+                    "expanded_pkg/jdk1${JDK_VERSION}0${JDK_UPDATE}.pkg/Payload" \
+                    -C "$HOME/.local/java" \
+                    --strip-components 3 \
+                    "Contents/Home"
+
+                # Unmount DMG
+                hdiutil detach "mounted_dmg" > /dev/null
+
+                jdk_installed=true
+
+            else
+                red "==> SHA256 digest for $jdk_dmg did not match, aborting"
+            fi
 
             # Clean up
             popd > /dev/null
             rm -r "$jdk_tmp"
-
-            jdk_installed=true
         fi
     fi
 else
