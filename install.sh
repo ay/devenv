@@ -41,7 +41,7 @@ if [ ! -e "$HOME/.rbenv" ]; then
         git clone https://github.com/sstephenson/ruby-build.git "$HOME/.rbenv/plugins/ruby-build"
         export PATH="$HOME/.rbenv/bin:$PATH"
         eval "$(rbenv init -)"
-        yellow "==> Compiling and installing Ruby v$RUBY_VERSION"
+        yellow "==> Compiling and installing Ruby $RUBY_VERSION"
         rbenv install "$RUBY_VERSION"
         rbenv global "$RUBY_VERSION"
         rbenv_installed=true
@@ -56,7 +56,7 @@ if [ ! -e "$HOME/.nvm" ]; then
         yellow "==> Installing nvm into ~/.nvm"
         git clone https://github.com/creationix/nvm.git "$HOME/.nvm"
         source "$HOME/.nvm/nvm.sh"
-        yellow "==> Installing Node v$NODE_VERSION"
+        yellow "==> Installing Node $NODE_VERSION"
         nvm install $NODE_VERSION
         nvm alias default $NODE_VERSION
         nvm_installed=true
@@ -73,7 +73,7 @@ if [ ! -e "$HOME/.pyenv" ]; then
         export PYENV_ROOT="$HOME/.pyenv"
         export PATH="$PYENV_ROOT/bin:$PATH"
         eval "$(pyenv init -)"
-        yellow "==> Installing Python v$PYTHON_VERSION"
+        yellow "==> Installing Python $PYTHON_VERSION"
 
         pyenv install $PYTHON_VERSION
 
@@ -92,7 +92,7 @@ fi
 # Install Go
 if [ ! -e "$HOME/.local/go" ]; then
     if ask "Install Go to ~/.local/go" "Y"; then
-        yellow "==> Installing Go v$GO_VERSION to ~/.local/go"
+        yellow "==> Installing Go $GO_VERSION to ~/.local/go"
 
         # Determine binary tarball filename
         if [ "$(uname -m)" = "x86_64" ]; then
@@ -190,7 +190,7 @@ fi
 
 if [ "$rbenv_installed" = true ]; then
     green "
-Ruby v$RUBY_VERSION is now installed with rbenv in ~/.rbenv. You should add
+Ruby $RUBY_VERSION is now installed with rbenv in ~/.rbenv. You should add
 these to your shell environment:
 
     export PATH=\"\$HOME/.rbenv/bin:\$PATH\"
@@ -200,7 +200,7 @@ fi
 
 if [ "$nvm_installed" = true ]; then
     green "
-Node v$NODE_VERSION is now installed with nvm in ~/.nvm. You should add these
+Node $NODE_VERSION is now installed with nvm in ~/.nvm. You should add these
 to your shell environment:
 
     source ~/.nvm/nvm.sh
@@ -209,7 +209,7 @@ fi
 
 if [ "$pyenv_installed" = true ]; then
     green "
-Python v$PYTHON_VERSION is now installed with pyenv in ~/.pyenv. You should add
+Python $PYTHON_VERSION is now installed with pyenv in ~/.pyenv. You should add
 these to your shell environment:
 
     export PYENV_ROOT=\"\$HOME/.pyenv\"
@@ -220,7 +220,7 @@ fi
 
 if [ "$go_installed" = true ]; then
     green "
-Go v$GO_VERSION is now installed in ~/.local/go. ~/.go was also created to use
+Go $GO_VERSION is now installed in ~/.local/go. ~/.go was also created to use
 as your GOPATH. You should add these to your shell environment:
 
     export GOROOT=\"\$HOME/.local/go\"
