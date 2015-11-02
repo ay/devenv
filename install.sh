@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-ruby_version="2.2.3"
-node_version="4.2.1"
-python_version="2.7.10"
-go_version="1.5.1"
+: ${RUBY_VERSION:="2.2.3"}
 
-jdk_version="8"
-jdk_update="66"
-jdk_build="17"
+: ${NODE_VERSION:="4.2.1"}
+
+: ${PYTHON_VERSION:="2.7.10"}
+
+: ${GO_VERSION:="1.5.1"}
+
+: ${JDK_VERSION:="8"}
+: ${JDK_UPDATE:="66"}
+: ${JDK_BUILD:="17"}
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
@@ -38,9 +41,9 @@ if [ ! -e "$HOME/.rbenv" ]; then
         git clone https://github.com/sstephenson/ruby-build.git "$HOME/.rbenv/plugins/ruby-build"
         export PATH="$HOME/.rbenv/bin:$PATH"
         eval "$(rbenv init -)"
-        yellow "==> Compiling and installing Ruby v$ruby_version"
-        rbenv install $ruby_version
-        rbenv global $ruby_version
+        yellow "==> Compiling and installing Ruby v$RUBY_VERSION"
+        rbenv install "$RUBY_VERSION"
+        rbenv global "$RUBY_VERSION"
         rbenv_installed=true
     fi
 else
@@ -53,9 +56,9 @@ if [ ! -e "$HOME/.nvm" ]; then
         yellow "==> Installing nvm into ~/.nvm"
         git clone https://github.com/creationix/nvm.git "$HOME/.nvm"
         source "$HOME/.nvm/nvm.sh"
-        yellow "==> Installing Node v$node_version"
-        nvm install $node_version
-        nvm alias default $node_version
+        yellow "==> Installing Node v$NODE_VERSION"
+        nvm install $NODE_VERSION
+        nvm alias default $NODE_VERSION
         nvm_installed=true
     fi
 else
@@ -70,11 +73,11 @@ if [ ! -e "$HOME/.pyenv" ]; then
         export PYENV_ROOT="$HOME/.pyenv"
         export PATH="$PYENV_ROOT/bin:$PATH"
         eval "$(pyenv init -)"
-        yellow "==> Installing Python v$python_version"
+        yellow "==> Installing Python v$PYTHON_VERSION"
 
-        pyenv install $python_version
+        pyenv install $PYTHON_VERSION
 
-        pyenv global $python_version
+        pyenv global $PYTHON_VERSION
         pyenv rehash
         yellow "==> Installing virtualenv"
         $HOME/.pyenv/shims/pip install virtualenv
@@ -89,7 +92,7 @@ fi
 # Install Go
 if [ ! -e "$HOME/.local/go" ]; then
     if ask "Install Go to ~/.local/go" "Y"; then
-        yellow "==> Installing Go v$go_version to ~/.local/go"
+        yellow "==> Installing Go v$GO_VERSION to ~/.local/go"
 
         # Determine binary tarball filename
         if [ "$(uname -m)" = "x86_64" ]; then
@@ -97,7 +100,7 @@ if [ ! -e "$HOME/.local/go" ]; then
         else
             arch="386"
         fi
-        tarball="go${go_version}.${platform}-${arch}.tar.gz"
+        tarball="go${GO_VERSION}.${platform}-${arch}.tar.gz"
 
         # Download URL
         download="https://storage.googleapis.com/golang/$tarball"
@@ -124,8 +127,8 @@ fi
 if [ ! -e "$HOME/.local/java" ]; then
     if ask "Install JDK to ~/.local/java" "Y"; then
         if [ "$platform" = "darwin" ]; then
-            jdk_dmg="jdk-${jdk_version}u${jdk_update}-macosx-x64.dmg"
-            jdk_ver="${jdk_version}u${jdk_update}-b${jdk_build}"
+            jdk_dmg="jdk-${JDK_VERSION}u${JDK_UPDATE}-macosx-x64.dmg"
+            jdk_ver="${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD}"
             jdk_url="http://download.oracle.com/otn-pub/java/jdk/${jdk_ver}/${jdk_dmg}"
             yellow "==> Installing JDK ${jdk_ver} to ~/.local/java"
 
@@ -142,13 +145,13 @@ if [ ! -e "$HOME/.local/java" ]; then
 
             # Expand package
             pkgutil --expand \
-                "mounted_dmg/JDK ${jdk_version} Update ${jdk_update}.pkg" \
+                "mounted_dmg/JDK ${JDK_VERSION} Update ${JDK_UPDATE}.pkg" \
                 "expanded_pkg"
 
             # Extract Java home to ~/.local/java
             mkdir -p "$HOME/.local/java"
             tar xf \
-                "expanded_pkg/jdk1${jdk_version}0${jdk_update}.pkg/Payload" \
+                "expanded_pkg/jdk1${JDK_VERSION}0${JDK_UPDATE}.pkg/Payload" \
                 -C "$HOME/.local/java" \
                 --strip-components 3 \
                 "Contents/Home"
@@ -187,7 +190,7 @@ fi
 
 if [ "$rbenv_installed" = true ]; then
     green "
-Ruby v$ruby_version is now installed with rbenv in ~/.rbenv. You should add
+Ruby v$RUBY_VERSION is now installed with rbenv in ~/.rbenv. You should add
 these to your shell environment:
 
     export PATH=\"\$HOME/.rbenv/bin:\$PATH\"
@@ -197,7 +200,7 @@ fi
 
 if [ "$nvm_installed" = true ]; then
     green "
-Node v$node_version is now installed with nvm in ~/.nvm. You should add these
+Node v$NODE_VERSION is now installed with nvm in ~/.nvm. You should add these
 to your shell environment:
 
     source ~/.nvm/nvm.sh
@@ -206,7 +209,7 @@ fi
 
 if [ "$pyenv_installed" = true ]; then
     green "
-Python v$python_version is now installed with pyenv in ~/.pyenv. You should add
+Python v$PYTHON_VERSION is now installed with pyenv in ~/.pyenv. You should add
 these to your shell environment:
 
     export PYENV_ROOT=\"\$HOME/.pyenv\"
@@ -217,7 +220,7 @@ fi
 
 if [ "$go_installed" = true ]; then
     green "
-Go v$go_version is now installed in ~/.local/go. ~/.go was also created to use
+Go v$GO_VERSION is now installed in ~/.local/go. ~/.go was also created to use
 as your GOPATH. You should add these to your shell environment:
 
     export GOROOT=\"\$HOME/.local/go\"
@@ -229,7 +232,7 @@ fi
 
 if [ "$jdk_installed" = true ]; then
     green "
-JDK ${jdk_version}u${jdk_update}-b${jdk_build} is now installed in ~/.local/java.
+JDK ${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD} is now installed in ~/.local/java.
 You should add these to your shell environment:
 
     export JAVA_HOME=\"\$HOME/.local/java\"
