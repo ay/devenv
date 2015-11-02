@@ -167,6 +167,24 @@ else
     yellow "==> ~/.local/java already exists"
 fi
 
+if [ ! -e "$HOME/.lein" ]; then
+    if ask "Install Leiningen to ~/.lein (with binary in ~/.local/bin)" "Y"; then
+        if [ -d "$HOME/.local/java" ]; then
+            export JAVA_HOME="$HOME/.local/java"
+            export PATH="$JAVA_HOME:$PATH"
+        fi
+        mkdir -p "$HOME/.local/bin"
+        curl -#fL \
+             -o "$HOME/.local/bin/lein" \
+             "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"
+        chmod +x "$HOME/.local/bin/lein"
+        "$HOME/.local/bin/lein" > /dev/null
+        lein_installed=true
+    fi
+else
+    yellow "==> ~/.lein already exists"
+fi
+
 if [ "$rbenv_installed" = true ]; then
     green "
 Ruby v$ruby_version is now installed with rbenv in ~/.rbenv. You should add
@@ -216,5 +234,14 @@ You should add these to your shell environment:
 
     export JAVA_HOME=\"\$HOME/.local/java\"
     export PATH=\"\$JAVA_HOME:\$PATH\"
+    "
+fi
+
+if [ "$lein_installed" = true ]; then
+    green "
+Leiningen is now installed to ~/.lein with the lein binary at ~/.local/bin/lein.
+Make sure you have ~/.local/bin in your PATH:
+
+    export PATH=\"\$PATH:\$HOME/.local/bin\"
     "
 fi

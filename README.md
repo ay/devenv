@@ -1,6 +1,6 @@
 # devenv
 
-devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), Go, and Java (OS X only for now). Everything is installed **locally** in your home directory.
+devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), Go, Java (OS X only for now) and Clojure with [Leiningen](http://leiningen.org/). Everything is installed **locally** in your home directory.
 
 ## Requirements
 
@@ -67,4 +67,12 @@ Java is installed from [binaries](http://www.oracle.com/technetwork/java/javase/
 ```sh
 export JAVA_HOME="$HOME/.local/java"
 export PATH="$JAVA_HOME:$PATH"
+```
+
+### Clojure / Leiningen
+
+Clojure is managed by Leiningen, which is installed in `~/.lein` with the `lein` binary in `~/.local/bin`. For Leiningen to work properly, make sure `~/.local/bin` is in your PATH:
+
+```sh
+export PATH="$PATH:$HOME/.local/bin"
 ```
