@@ -131,6 +131,7 @@ else
     yellow "==> ~/.local/go already exists"
 fi
 
+# Install Java (JDK)
 if [ ! -e "${HOME}/.local/java" ]; then
     if ask "Install JDK to ~/.local/java" "Y"; then
         if [ "$platform" = "darwin" ]; then
@@ -183,6 +184,7 @@ else
     yellow "==> ~/.local/java already exists"
 fi
 
+# Install Leiningen (for Clojure)
 if [ ! -e "${HOME}/.lein" ]; then
     if ask "Install Leiningen to ~/.lein (with binary in ~/.local/bin)" "Y"; then
         if [ -d "${HOME}/.local/java" ]; then
