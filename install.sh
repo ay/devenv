@@ -42,7 +42,7 @@ verify_digest () {
 
 # Install rbenv and Ruby
 if [ ! -e "${HOME}/.rbenv" ]; then
-    if ask "Install rbenv and Ruby" "Y"; then
+    if ask "Install rbenv and Ruby to ~/.rbenv" "Y"; then
         yellow "==> Installing rbenv into ~/.rbenv"
         git clone https://github.com/sstephenson/rbenv.git "${HOME}/.rbenv"
         git clone https://github.com/sstephenson/ruby-build.git "${HOME}/.rbenv/plugins/ruby-build"
@@ -59,7 +59,7 @@ fi
 
 # Install nvm and Node
 if [ ! -e "${HOME}/.nvm" ]; then
-    if ask "Install nvm and Node?" "Y"; then
+    if ask "Install nvm and Node to ~/.nvm" "Y"; then
         yellow "==> Installing nvm into ~/.nvm"
         git clone https://github.com/creationix/nvm.git "${HOME}/.nvm"
         source "${HOME}/.nvm/nvm.sh"
@@ -74,7 +74,7 @@ fi
 
 # Install pyenv and Python
 if [ ! -e "${HOME}/.pyenv" ]; then
-    if ask "Install pyenv and Python" "Y"; then
+    if ask "Install pyenv and Python to ~/.pyenv" "Y"; then
         yellow "==> Installing pyenv into ~/.pyenv"
         git clone https://github.com/yyuu/pyenv.git "${HOME}/.pyenv"
         export PYENV_ROOT="${HOME}/.pyenv"
@@ -255,7 +255,7 @@ fi
 
 if [ "$lein_installed" = true ]; then
     green "
-Leiningen is now installed to ~/.lein with the lein binary at ~/.local/bin/lein.
+Leiningen is now installed in ~/.lein with the lein binary at ~/.local/bin/lein.
 Make sure you have ~/.local/bin in your PATH:
 
     export PATH=\"\${PATH}:\${HOME}/.local/bin\"
