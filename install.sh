@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+: ${INSTALL_DIR:="${HOME}/.local"}
+
 : ${RUBY_VERSION:="2.2.3"}
 
 : ${NODE_VERSION:="4.2.1"}
@@ -97,9 +99,9 @@ else
 fi
 
 # Install Go
-if [ ! -e "${HOME}/.local/go" ]; then
-    if ask "Install Go to ~/.local/go" "Y"; then
-        yellow "==> Installing Go ${GO_VERSION} to ~/.local/go"
+if [ ! -e "${INSTALL_DIR}/go" ]; then
+    if ask "Install Go to ${INSTALL_DIR}/go" "Y"; then
+        yellow "==> Installing Go ${GO_VERSION} to ${INSTALL_DIR}/go"
 
         # Determine binary tarball filename
         if [ "$(uname -m)" = "x86_64" ]; then
@@ -116,9 +118,9 @@ if [ ! -e "${HOME}/.local/go" ]; then
         yellow "==> Downloading Go binary tarball from ${download}"
         curl -L -f -C - --progress-bar "$download" -o "/tmp/${tarball}"
         if [ $? -eq 0 ]; then
-            yellow "==> Untarring ${tarball} to ~/.local/go"
-            mkdir -p "${HOME}/.local/go"
-            tar zxf "/tmp/${tarball}" --strip-components 1 -C "${HOME}/.local/go"
+            yellow "==> Untarring ${tarball} to ${INSTALL_DIR}/go"
+            mkdir -p "${INSTALL_DIR}/go"
+            tar zxf "/tmp/${tarball}" --strip-components 1 -C "${INSTALL_DIR}/go"
             rm "/tmp/${tarball}"
             yellow "==> Creating ~/.go to use as GOPATH"
             mkdir -p "${HOME}/.go"
@@ -128,17 +130,17 @@ if [ ! -e "${HOME}/.local/go" ]; then
         fi
     fi
 else
-    yellow "==> ~/.local/go already exists"
+    yellow "==> ${INSTALL_DIR}/go already exists"
 fi
 
 # Install Java (JDK)
-if [ ! -e "${HOME}/.local/java" ]; then
-    if ask "Install JDK to ~/.local/java" "Y"; then
+if [ ! -e "${INSTALL_DIR}/java" ]; then
+    if ask "Install JDK to ${INSTALL_DIR}/java" "Y"; then
         if [ "$platform" = "darwin" ]; then
             jdk_dmg="jdk-${JDK_VERSION}u${JDK_UPDATE}-macosx-x64.dmg"
             jdk_ver="${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD}"
             jdk_url="http://download.oracle.com/otn-pub/java/jdk/${jdk_ver}/${jdk_dmg}"
-            yellow "==> Installing JDK ${jdk_ver} to ~/.local/java"
+            yellow "==> Installing JDK ${jdk_ver} to ${INSTALL_DIR}/java"
 
             # Work from a temporary directory
             jdk_tmp="$(mktemp -d -t jdk)" && pushd "$jdk_tmp" > /dev/null
@@ -158,11 +160,11 @@ if [ ! -e "${HOME}/.local/java" ]; then
                     "mounted_dmg/JDK ${JDK_VERSION} Update ${JDK_UPDATE}.pkg" \
                     "expanded_pkg"
 
-                # Extract Java home to ~/.local/java
-                mkdir -p "$HOME/.local/java"
+                # Extract Java home
+                mkdir -p "${INSTALL_DIR}/java"
                 tar xf \
                     "expanded_pkg/jdk1${JDK_VERSION}0${JDK_UPDATE}.pkg/Payload" \
-                    -C "${HOME}/.local/java" \
+                    -C "${INSTALL_DIR}/java" \
                     --strip-components 3 \
                     "Contents/Home"
 
@@ -181,22 +183,22 @@ if [ ! -e "${HOME}/.local/java" ]; then
         fi
     fi
 else
-    yellow "==> ~/.local/java already exists"
+    yellow "==> ${INSTALL_DIR}/java already exists"
 fi
 
 # Install Leiningen (for Clojure)
 if [ ! -e "${HOME}/.lein" ]; then
-    if ask "Install Leiningen to ~/.lein (with binary in ~/.local/bin)" "Y"; then
-        if [ -d "${HOME}/.local/java" ]; then
-            export JAVA_HOME="${HOME}/.local/java"
+    if ask "Install Leiningen to ~/.lein (with binary in ${INSTALL_DIR}/bin)" "Y"; then
+        if [ -d "${INSTALL_DIR}/java" ]; then
+            export JAVA_HOME="${INSTALL_DIR}/java"
             export PATH="${JAVA_HOME}:${PATH}"
         fi
-        mkdir -p "${HOME}/.local/bin"
+        mkdir -p "${INSTALL_DIR}/bin"
         curl -#fL \
-             -o "${HOME}/.local/bin/lein" \
+             -o "${INSTALL_DIR}/bin/lein" \
              "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"
-        chmod +x "${HOME}/.local/bin/lein"
-        "${HOME}/.local/bin/lein" > /dev/null
+        chmod +x "${INSTALL_DIR}/bin/lein"
+        "${INSTALL_DIR}/bin/lein" > /dev/null
         lein_installed=true
     fi
 else
@@ -235,10 +237,10 @@ fi
 
 if [ "$go_installed" = true ]; then
     green "
-Go ${GO_VERSION} is now installed in ~/.local/go. ~/.go was also created to use
+Go ${GO_VERSION} is now installed in ${INSTALL_DIR}/go. ~/.go was also created to use
 as your GOPATH. You should add these to your shell environment:
 
-    export GOROOT=\"\${HOME}/.local/go\"
+    export GOROOT=\"${INSTALL_DIR}/go\"
     export PATH=\"\${PATH}:\${GOROOT}/bin\"
     export GOPATH=\"\${HOME}/.go\"
     export PATH=\"\${PATH}:\${GOPATH}/bin\"
@@ -247,19 +249,19 @@ fi
 
 if [ "$jdk_installed" = true ]; then
     green "
-JDK ${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD} is now installed in ~/.local/java.
+JDK ${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD} is now installed in ${INSTALL_DIR}/java.
 You should add these to your shell environment:
 
-    export JAVA_HOME=\"\${HOME}/.local/java\"
+    export JAVA_HOME=\"${INSTALL_DIR}/java\"
     export PATH=\"\${JAVA_HOME}:\${PATH}\"
     "
 fi
 
 if [ "$lein_installed" = true ]; then
     green "
-Leiningen is now installed in ~/.lein with the lein binary at ~/.local/bin/lein.
-Make sure you have ~/.local/bin in your PATH:
+Leiningen is now installed in ~/.lein with the lein binary at ${INSTALL_DIR}/bin/lein.
+Make sure you have ${INSTALL_DIR}/bin in your PATH:
 
-    export PATH=\"\${PATH}:\${HOME}/.local/bin\"
+    export PATH=\"\${PATH}:${INSTALL_DIR}/bin\"
     "
 fi
