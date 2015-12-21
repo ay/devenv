@@ -2,7 +2,7 @@
 
 : ${INSTALL_DIR:="${HOME}/.local"}
 
-: ${RUBY_VERSION:="2.2.3"}
+: ${RUBY_VERSION:="2.2.4"}
 
 : ${NODE_VERSION:="4.2.3"}
 
