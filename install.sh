@@ -4,7 +4,7 @@
 
 : ${RUBY_VERSION:="2.2.3"}
 
-: ${NODE_VERSION:="4.2.1"}
+: ${NODE_VERSION:="4.2.3"}
 
 : ${PYTHON_VERSION:="2.7.10"}
 
