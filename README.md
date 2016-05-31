@@ -66,7 +66,7 @@ Java is installed from [binaries](http://www.oracle.com/technetwork/java/javase/
 
 ```sh
 export JAVA_HOME="${HOME}/.local/java"
-export PATH="${JAVA_HOME}:${PATH}"
+export PATH="${JAVA_HOME}/bin:${PATH}"
 ```
 
 ### Clojure / Leiningen

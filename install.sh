@@ -258,7 +258,7 @@ JDK ${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD} is now installed in ${INSTALL_DIR
 You should add these to your shell environment:
 
     export JAVA_HOME=\"${INSTALL_DIR}/java\"
-    export PATH=\"\${JAVA_HOME}:\${PATH}\"
+    export PATH=\"\${JAVA_HOME}/bin:\${PATH}\"
     "
 fi
 
