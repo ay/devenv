@@ -194,6 +194,7 @@ fi
 if command -v java > /dev/null; then
     if [ ! -e "${HOME}/.lein" ]; then
         if ask "Install Leiningen to ~/.lein (with binary in ${INSTALL_DIR}/bin)" "Y"; then
+            yellow "==> Installing Leiningen to ~/.lein"
             mkdir -p "${INSTALL_DIR}/bin"
             curl -#fL \
                 -o "${INSTALL_DIR}/bin/lein" \
