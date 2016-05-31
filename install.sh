@@ -88,6 +88,8 @@ if [ ! -e "${HOME}/.pyenv" ]; then
 
         pyenv global "$PYTHON_VERSION"
         pyenv rehash
+        yellow "==> Upgrading pip"
+        "${HOME}/.pyenv/shims/pip" install --upgrade pip
         yellow "==> Installing virtualenv"
         "${HOME}/.pyenv/shims/pip" install virtualenv
         yellow "==> Installing virtualenvwrapper"
