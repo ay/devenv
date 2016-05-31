@@ -180,6 +180,10 @@ if [ ! -e "${INSTALL_DIR}/java" ]; then
             # Clean up
             popd > /dev/null
             rm -r "$jdk_tmp"
+
+            # Set Java's home and add its binaries to PATH
+            export JAVA_HOME="${INSTALL_DIR}/java"
+            export PATH="${JAVA_HOME}/bin:${PATH}"
         fi
     fi
 else
@@ -187,22 +191,22 @@ else
 fi
 
 # Install Leiningen (for Clojure)
-if [ ! -e "${HOME}/.lein" ]; then
-    if ask "Install Leiningen to ~/.lein (with binary in ${INSTALL_DIR}/bin)" "Y"; then
-        if [ -d "${INSTALL_DIR}/java" ]; then
-            export JAVA_HOME="${INSTALL_DIR}/java"
-            export PATH="${JAVA_HOME}:${PATH}"
+if command -v java > /dev/null; then
+    if [ ! -e "${HOME}/.lein" ]; then
+        if ask "Install Leiningen to ~/.lein (with binary in ${INSTALL_DIR}/bin)" "Y"; then
+            mkdir -p "${INSTALL_DIR}/bin"
+            curl -#fL \
+                -o "${INSTALL_DIR}/bin/lein" \
+                "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"
+            chmod +x "${INSTALL_DIR}/bin/lein"
+            "${INSTALL_DIR}/bin/lein" > /dev/null
+            lein_installed=true
         fi
-        mkdir -p "${INSTALL_DIR}/bin"
-        curl -#fL \
-             -o "${INSTALL_DIR}/bin/lein" \
-             "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"
-        chmod +x "${INSTALL_DIR}/bin/lein"
-        "${INSTALL_DIR}/bin/lein" > /dev/null
-        lein_installed=true
+    else
+        yellow "==> ~/.lein already exists"
     fi
 else
-    yellow "==> ~/.lein already exists"
+    yellow "==> Java not found, skipping Leiningen installation"
 fi
 
 if [ "$rbenv_installed" = true ]; then
