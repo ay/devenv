@@ -4,7 +4,7 @@ devenv is a tiny bash script that lets you quickly bootstrap a local development
 
 ## Requirements
 
-I've only tested this on recent versions of Ubuntu and OS X Yosemite. You need:
+I've only tested this on recent versions of Ubuntu and OS X El Capitan. You need:
 
   * Git
   * curl
