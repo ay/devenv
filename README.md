@@ -12,6 +12,7 @@ I've only tested this on recent versions of Ubuntu and OS X Yosemite. You need:
   * **Ubuntu**:
     * `build-essential` package
     * `libssl-dev` package
+    * `libreadline-dev` package
   * **OS X**: Command Line Tools (`xcode-select --install`)
 
 ## Installation
