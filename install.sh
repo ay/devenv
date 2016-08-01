@@ -11,9 +11,9 @@
 : ${GO_VERSION:="1.6.3"}
 
 : ${JDK_VERSION:="8"}
-: ${JDK_UPDATE:="92"}
+: ${JDK_UPDATE:="102"}
 : ${JDK_BUILD:="14"}
-: ${JDK_DIGEST:="626c2d9478d07318e9e6b2c38707f73aeafc0f7a9ede575062749346a7d347ca"}
+: ${JDK_DIGEST:="9f53b71af203502da4ff416b5ab1a217a655006786bcbb8f8d8ad501debda748"}
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
