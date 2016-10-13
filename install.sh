@@ -84,7 +84,11 @@ if [ ! -e "${HOME}/.pyenv" ]; then
         eval "$(pyenv init -)"
         yellow "==> Installing Python ${PYTHON_VERSION}"
 
-        pyenv install "$PYTHON_VERSION"
+        if [ "$platform" = "darwin" ]; then
+            CFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install "$PYTHON_VERSION"
+        else
+            pyenv install "$PYTHON_VERSION"
+        fi
 
         pyenv global "$PYTHON_VERSION"
         pyenv rehash
