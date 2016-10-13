@@ -1,10 +1,10 @@
 # devenv
 
-devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), Go, Java (OS X only for now) and Clojure with [Leiningen](http://leiningen.org/). Everything is installed **locally** in your home directory.
+devenv is a tiny bash script that lets you quickly bootstrap a local development environment with the latest stable versions of Ruby with [rbenv](https://github.com/sstephenson/rbenv), Node with [nvm](https://github.com/creationix/nvm), Python with [pyenv](https://github.com/yyuu/pyenv), Go, Java (macOS only for now) and Clojure with [Leiningen](http://leiningen.org/). Everything is installed **locally** in your home directory.
 
 ## Requirements
 
-I've only tested this on recent versions of Ubuntu and OS X El Capitan. You need:
+I've only tested this on recent versions of Ubuntu and macOS Sierra. You need:
 
   * Git
   * curl
@@ -13,7 +13,7 @@ I've only tested this on recent versions of Ubuntu and OS X El Capitan. You need
     * `build-essential` package
     * `libssl-dev` package
     * `libreadline-dev` package
-  * **OS X**: Command Line Tools (`xcode-select --install`)
+  * **macOS**: Command Line Tools (`xcode-select --install`)
 
 ## Installation
 
@@ -63,7 +63,7 @@ export PATH="${PATH}:${GOPATH}/bin"
 
 ### Java / JDK
 
-Java is installed from [binaries](http://www.oracle.com/technetwork/java/javase/downloads/index.html) distributed by Oracle for your system into `~/.local/java`. Currently, Java will only be installed on OS X. For Java to work properly, you need to add these to your shell environment:
+Java is installed from [binaries](http://www.oracle.com/technetwork/java/javase/downloads/index.html) distributed by Oracle for your system into `~/.local/java`. Currently, Java will only be installed on macOS. For Java to work properly, you need to add these to your shell environment:
 
 ```sh
 export JAVA_HOME="${HOME}/.local/java"
