@@ -20,7 +20,7 @@ I've only tested this on recent versions of Ubuntu and macOS Sierra. You need:
 Before installing, you should read through [install.sh](install.sh). You could either clone this repo and run install.sh from there or just:
 
 ```
-$ bash <(curl -sSL https://raw.githubusercontent.com/ay/devenv/master/install.sh)
+$ bash <(curl -sSL https://github.com/ay/devenv/raw/master/install.sh)
 ```
 
 ### Ruby / rbenv

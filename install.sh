@@ -204,7 +204,7 @@ if command -v java > /dev/null; then
             mkdir -p "${INSTALL_DIR}/bin"
             curl -#fL \
                 -o "${INSTALL_DIR}/bin/lein" \
-                "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"
+                "https://github.com/technomancy/leiningen/raw/master/bin/lein"
             chmod +x "${INSTALL_DIR}/bin/lein"
             "${INSTALL_DIR}/bin/lein" > /dev/null
             lein_installed=true
