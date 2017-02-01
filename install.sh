@@ -11,9 +11,10 @@
 : ${GO_VERSION:="1.7.5"}
 
 : ${JDK_VERSION:="8"}
-: ${JDK_UPDATE:="112"}
-: ${JDK_BUILD:="16"}
-: ${JDK_DIGEST:="c9ebb729acb0ee8e6fbeda85751be20b024c45e3ebb83cc7c624908ffb8a466d"}
+: ${JDK_UPDATE:="121"}
+: ${JDK_BUILD:="13"}
+: ${JDK_BUILDHASH:="e9e7ea248e2c4826b92b3f075a80e441"}
+: ${JDK_DIGEST:="82ff2493cd4b9ebdaeb9135abaffc9a37b71d341b007a83f73aa6ff3df1b6a3a"}
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
@@ -145,7 +146,7 @@ if [ ! -e "${INSTALL_DIR}/java" ]; then
         if [ "$platform" = "darwin" ]; then
             jdk_dmg="jdk-${JDK_VERSION}u${JDK_UPDATE}-macosx-x64.dmg"
             jdk_ver="${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD}"
-            jdk_url="http://download.oracle.com/otn-pub/java/jdk/${jdk_ver}/${jdk_dmg}"
+            jdk_url="http://download.oracle.com/otn-pub/java/jdk/${jdk_ver}/${JDK_BUILDHASH}/${jdk_dmg}"
             yellow "==> Installing JDK ${jdk_ver} to ${INSTALL_DIR}/java"
 
             # Work from a temporary directory
