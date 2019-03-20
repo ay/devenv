@@ -10,11 +10,10 @@
 
 : ${GO_VERSION:="1.12.1"}
 
-: ${JDK_VERSION:="8"}
-: ${JDK_UPDATE:="152"}
-: ${JDK_BUILD:="16"}
-: ${JDK_BUILDHASH:="aa0333dd3019491ca4f6ddbe78cdb6d0"}
-: ${JDK_DIGEST:="9f9008e2b05e431838c8ee5f0d54f7715da386bc70b14d4910766c71e9f7923f"}
+: ${JDK_VERSION:="12"}
+: ${JDK_BUILD:="33"}
+: ${JDK_BUILDHASH:="312335d836a34c7c8bba9d963e26dc23"}
+: ${JDK_DIGEST:="3e395bb35589350568d2172fbfa20aa2c587bf22e42ce963ccaa0641b3317597"}
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
@@ -144,10 +143,9 @@ fi
 if [ ! -e "${INSTALL_DIR}/java" ]; then
     if ask "Install JDK to ${INSTALL_DIR}/java" "Y"; then
         if [ "$platform" = "darwin" ]; then
-            jdk_dmg="jdk-${JDK_VERSION}u${JDK_UPDATE}-macosx-x64.dmg"
-            jdk_ver="${JDK_VERSION}u${JDK_UPDATE}-b${JDK_BUILD}"
-            jdk_url="http://download.oracle.com/otn-pub/java/jdk/${jdk_ver}/${JDK_BUILDHASH}/${jdk_dmg}"
-            yellow "==> Installing JDK ${jdk_ver} to ${INSTALL_DIR}/java"
+            jdk_tarball="jdk-${JDK_VERSION}_osx-x64_bin.tar.gz"
+            jdk_url="http://download.oracle.com/otn-pub/java/jdk/${JDK_VERSION}+${JDK_BUILD}/${JDK_BUILDHASH}/${jdk_tarball}"
+            yellow "==> Installing JDK ${JDK_VERSION} build ${JDK_BUILD} to ${INSTALL_DIR}/java"
 
             # Work from a temporary directory
             jdk_tmp="$(mktemp -d -t jdk)" && pushd "$jdk_tmp" > /dev/null
@@ -155,28 +153,17 @@ if [ ! -e "${INSTALL_DIR}/java" ]; then
             # Download JDK
             curl -#fL \
                  --cookie "oraclelicense=accept-securebackup-cookie" \
-                 -o "$jdk_dmg" "$jdk_url"
+                 -o "$jdk_tarball" "$jdk_url"
 
-            if verify_digest "$jdk_dmg" "$JDK_DIGEST"; then
-
-                # Mount DMG
-                hdiutil attach "$jdk_dmg" -mountpoint "mounted_dmg" > /dev/null
-
-                # Expand package
-                pkgutil --expand \
-                    "mounted_dmg/JDK ${JDK_VERSION} Update ${JDK_UPDATE}.pkg" \
-                    "expanded_pkg"
+            if verify_digest "$jdk_tarball" "$JDK_DIGEST"; then
 
                 # Extract Java home
                 mkdir -p "${INSTALL_DIR}/java"
                 tar xf \
-                    "expanded_pkg/jdk1${JDK_VERSION}0${JDK_UPDATE}.pkg/Payload" \
+                    "$jdk_tarball" \
                     -C "${INSTALL_DIR}/java" \
-                    --strip-components 3 \
-                    "Contents/Home"
-
-                # Unmount DMG
-                hdiutil detach "mounted_dmg" > /dev/null
+                    --strip-components 4 \
+                    "jdk-${JDK_VERSION}.jdk/Contents/Home"
 
                 jdk_installed=true
 
