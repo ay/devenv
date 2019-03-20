@@ -47,8 +47,8 @@ verify_digest () {
 if [ ! -e "${HOME}/.rbenv" ]; then
     if ask "Install rbenv and Ruby to ~/.rbenv" "Y"; then
         yellow "==> Installing rbenv into ~/.rbenv"
-        git clone https://github.com/sstephenson/rbenv.git "${HOME}/.rbenv"
-        git clone https://github.com/sstephenson/ruby-build.git "${HOME}/.rbenv/plugins/ruby-build"
+        git clone https://github.com/rbenv/rbenv.git "${HOME}/.rbenv"
+        git clone https://github.com/rbenv/ruby-build.git "${HOME}/.rbenv/plugins/ruby-build"
         export PATH="${HOME}/.rbenv/bin:${PATH}"
         eval "$(rbenv init -)"
         yellow "==> Compiling and installing Ruby ${RUBY_VERSION}"
