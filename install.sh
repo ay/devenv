@@ -119,7 +119,7 @@ if [ ! -e "${INSTALL_DIR}/go" ]; then
         tarball="go${GO_VERSION}.${platform}-${arch}.tar.gz"
 
         # Download URL
-        download="https://storage.googleapis.com/golang/${tarball}"
+        download="https://dl.google.com/go/${tarball}"
 
         # Attempt to download and untar
         yellow "==> Downloading Go binary tarball from ${download}"
