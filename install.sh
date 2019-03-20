@@ -8,7 +8,7 @@
 
 : ${PYTHON_VERSION:="3.7.2"}
 
-: ${GO_VERSION:="1.9.2"}
+: ${GO_VERSION:="1.12.1"}
 
 : ${JDK_VERSION:="8"}
 : ${JDK_UPDATE:="152"}
