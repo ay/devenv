@@ -10,10 +10,10 @@
 
 : ${GO_VERSION:="1.12.7"}
 
-: ${JDK_VERSION:="12"}
-: ${JDK_BUILD:="33"}
-: ${JDK_BUILDHASH:="312335d836a34c7c8bba9d963e26dc23"}
-: ${JDK_DIGEST:="3e395bb35589350568d2172fbfa20aa2c587bf22e42ce963ccaa0641b3317597"}
+: ${JDK_VERSION:="12.0.2"}
+: ${JDK_BUILD:="10"}
+: ${JDK_BUILDHASH:="e482c34c86bd4bf8b56c0b35558996b9"}
+: ${JDK_DIGEST:="82fdf9f2cd4e5b1ed538dfb1c0169e4e1018494105d950cb8330417076922496"}
 
 platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
