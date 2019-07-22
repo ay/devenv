@@ -6,7 +6,7 @@
 
 : ${NODE_VERSION:="12.16.0"}
 
-: ${PYTHON_VERSION:="3.7.2"}
+: ${PYTHON_VERSION:="3.7.4"}
 
 : ${GO_VERSION:="1.12.1"}
 
